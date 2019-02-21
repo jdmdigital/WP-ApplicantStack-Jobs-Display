@@ -1,8 +1,8 @@
 <?php 
 /*
-Plugin Name: 	ApplicantStack Jobs Display
-Plugin URI:		http://demos.jdmdigital.co/plugins/applicant-stack-jobs/
-Description: 	A custom plugin which displays a responsive list of jobs from ApplicantStack using their JSON API. 
+Plugin Name: 	WP ApplicantStack Jobs Display
+Plugin URI:		https://github.com/jdmdigital/wp-applicantstack-jobs-display
+Description: 	A WordPress plugin which displays a responsive, filterable list of jobs from ApplicantStack's Jobs API using a Shortcode. 
 Author: 		JDM Digital
 Author URI:		https://jdmdigital.co
 Version: 		1.0.0
