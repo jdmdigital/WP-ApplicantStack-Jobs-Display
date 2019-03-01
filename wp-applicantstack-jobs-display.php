@@ -5,7 +5,7 @@ Plugin URI:		https://github.com/jdmdigital/wp-applicantstack-jobs-display
 Description: 	A WordPress plugin which displays a responsive, filterable list of jobs from ApplicantStack's Jobs API using a Shortcode. 
 Author: 		JDM Digital
 Author URI:		https://jdmdigital.co
-Version: 		1.0.0
+Version: 		1.1.0
 */
 
 // If this file is called directly, abandon ship.
@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Set Globals
-define( 'APPLICANTSTACK_JOBS_VERSION', '1.0.0' );
+define( 'APPLICANTSTACK_JOBS_VERSION', '1.1.0' );
 define( 'APPLICANTSTACK_JOBS_NAME', 'ApplicantStack Jobs Plugin' );
 define( 'APPLICANTSTACK_JOBS_DEBUG', false );
 define( 'APPLICANTSTACK_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -107,19 +107,20 @@ function applicantstack_jobs_shortcode( $atts ) {
 				// Build/Assign variables for use in markup ($jobs_html)
 				$job_name 			= $job["Job Name"];
 				$job_department 	= $job["Department"];
-				$departmentclass 	= strtolower(str_replace('&','-', $job_department));
-				$departmentclass 	= strtolower(str_replace(' ','', $departmentclass));
+				$departmentclass 	= strtolower(str_replace(' & ','-', $job_department));
+				$departmentclass 	= strtolower(str_replace(' ','_', $departmentclass));
 				$job_location 		= $job["Location"];
-				$locationclass 		= strtolower(str_replace(', TX','', $job_location));
 				$job_details_link 	= $details_link.$job["Job Serial"];
+				$locationclass 		= strtolower(str_replace(', ','-', $job_location));
+				$locationclass 		= str_replace(' ','-', $locationclass);
 
 				// Build Departments Array
 				if (!in_array($departmentclass, $departments)) {
 					array_push($departments, $departmentclass);
 				}
 				// Build Locations Array
-				if (!in_array($locationclass, $locations)) {
-					array_push($locations, $locationclass);
+				if (!in_array($job_location , $locations)) {
+					array_push($locations, $job_location);
 				}
 
 				// Jobs Grid Markup
@@ -144,9 +145,11 @@ function applicantstack_jobs_shortcode( $atts ) {
 		<p class="filter-title">Filter by Location:</p>
 		<div id="location-filters" class="button-group"> 
 			<button class="button default is-checked" data-filter="*">All Locations</button>';
-		for($i = 0; $i < $arrlength; $i++) {
+		for($i = 0; $i < $arrlength; $i++) {		
+			$locationclass 		= strtolower(str_replace(', ','-', $locations[$i]));
+			$locationclass 		= str_replace(' ','-', $locationclass);
 			$location_pretty 	= ucwords(str_replace('-',' & ', $locations[$i]));
-			$locations_html .= '<button class="button" data-filter=".'.strtolower($locations[$i]).'">'.$location_pretty.'</button>';
+			$locations_html .= '<button class="button" data-filter=".'.strtolower($locationclass).'">'.$location_pretty.'</button>';
 		}
 		$locations_html .= '</div>';
 
@@ -159,6 +162,7 @@ function applicantstack_jobs_shortcode( $atts ) {
 			<button class="button default is-checked" data-filter="*">All Departments</button>';
 		for($i = 0; $i < $arrlength; $i++) {
 			$department_pretty 	= ucwords(str_replace('-',' & ', $departments[$i]));
+			$department_pretty 	= ucwords(str_replace('_',' ', $department_pretty));			
 			$departments_html .= '<button class="button" data-filter=".'.strtolower($departments[$i]).'">'.$department_pretty.'</button>';
 		}
 		$departments_html .= '</div>';

@@ -21,6 +21,9 @@ Using the [Applicant Stack API](https://help.applicantstack.com/hc/en-us/article
 
 == Changelog ==
 
+= 1.1 =
+* Filter for special characters
+
 = 1.0 =
 * Add Filter by Department
 
