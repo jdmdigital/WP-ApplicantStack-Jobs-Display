@@ -5,7 +5,7 @@ Plugin URI:		https://github.com/jdmdigital/wp-applicantstack-jobs-display
 Description: 	A WordPress plugin which displays a responsive, filterable list of jobs from ApplicantStack's Jobs API using a Shortcode. 
 Author: 		JDM Digital
 Author URI:		https://jdmdigital.co
-Version: 		1.1.0
+Version: 		1.1.1
 */
 
 // If this file is called directly, abandon ship.
@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Set Globals
-define( 'APPLICANTSTACK_JOBS_VERSION', '1.1.0' );
+define( 'APPLICANTSTACK_JOBS_VERSION', '1.1.1' );
 define( 'APPLICANTSTACK_JOBS_NAME', 'ApplicantStack Jobs Plugin' );
 define( 'APPLICANTSTACK_JOBS_DEBUG', false );
 define( 'APPLICANTSTACK_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -52,10 +52,16 @@ function asj_get_data(){
     $mydomain = asj_domain_validate(esc_attr(get_option('asj_domain'))); 
     $action = 'GET';
     $operation = 'jobs';
-    $pagenumber = '1';
+	// @todo: make this a setting from the admin
+    $stage = 'Open'; // ?stage= filter, case-sensitive
+	$pagenumber = '1';
     if($pagenumber){$operation .= '/'.$pagenumber;}
 
-    $operationurl = $mydomain."/api/".$operation;
+    if($stage != '') {
+		$operationurl = $mydomain."/api/".$operation.'?stage='.$stage;
+	} else {
+		$operationurl = $mydomain."/api/".$operation;
+	}
 
     $curl = curl_init($operationurl);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
