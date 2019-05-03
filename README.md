@@ -5,6 +5,11 @@ A WordPress plugin which displays a responsive, filterable list of jobs from App
 ## Description
 Using the [Applicant Stack API](https://help.applicantstack.com/hc/en-us/articles/115000786273-API-Integration-Guide "API Integration Guide"), this plugin will display up to 100 of the Applicant Stack jobs you have listed.  
 
+![alt text](https://github.com/jdmdigital/wp-applicantstack-jobs-display/blob/master/img/applicant-stack-jobs-display-screenshot.jpg "ApplicantStack Jobs Screenshot")
+
+## Demo
+We don't have a live demo to show you since we don't have our own ApplicantStack account to use, but there is a little visual demo for your viewing pleasure over on the announcement post here: https://jdmdig.it/2ZShFOi.
+
 ## Installation
 1. Upload `wp-applicantstack-jobs-display` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
